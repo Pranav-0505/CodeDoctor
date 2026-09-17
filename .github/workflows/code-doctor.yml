@@ -1,0 +1,47 @@
+name: Code Doctor Quality Gate
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-doctor-scan:
+    name: Code Doctor Universal Diagnosis Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Code Doctor Platform
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e backend/
+          pip install -e cli/
+
+      - name: Run Code Doctor Project Scan
+        run: |
+          codedoctor scan ./ --format json > code_doctor_report.json
+          cat code_doctor_report.json
+
+      - name: Evaluate Quality Gate Thresholds
+        run: |
+          python -c "
+          import json, sys
+          with open('code_doctor_report.json') as f:
+              report = json.load(f)
+          crit = report.get('critical_issues', 0)
+          health = report.get('health_score', 100.0)
+          print(f'Critical Issues: {crit}, Health Score: {health}')
+          if crit > 0 or health < 70.0:
+              print('❌ CODE DOCTOR QUALITY GATE FAILED!')
+              sys.exit(1)
+          print('✓ CODE DOCTOR QUALITY GATE PASSED!')
+          "

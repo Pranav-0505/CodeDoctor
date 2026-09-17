@@ -1,0 +1,60 @@
+{
+  "name": "codedoctor-vscode",
+  "displayName": "Code Doctor",
+  "description": "Universal Intelligent Code Diagnosis & Repair Extension for VS Code",
+  "version": "1.0.0",
+  "publisher": "codedoctor",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Testing"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onCommand:codedoctor.analyzeFile",
+    "onCommand:codedoctor.runSurgery"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codedoctor.analyzeFile",
+        "title": "Code Doctor: Diagnose Current File"
+      },
+      {
+        "command": "codedoctor.runSurgery",
+        "title": "Code Doctor: Run Code Surgery & Preview Fix"
+      }
+    ],
+    "configuration": {
+      "title": "Code Doctor",
+      "properties": {
+        "codedoctor.apiUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8000/api/v1",
+          "description": "Code Doctor REST API Endpoint URL"
+        },
+        "codedoctor.learningLevel": {
+          "type": "string",
+          "enum": [
+            "Beginner",
+            "Intermediate",
+            "Advanced"
+          ],
+          "default": "Beginner",
+          "description": "Diagnostic explanation detail level"
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "@types/vscode": "^1.134.0",
+    "typescript": "^7.0.2"
+  }
+}
