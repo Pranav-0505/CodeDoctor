@@ -25,3 +25,9 @@ build/
 *.log
 .DS_Store
 Thumbs.db
+
+# Local database and backup files
+backend/code_doctor.db
+*.backup
+*.backup2
+*.health-backup
