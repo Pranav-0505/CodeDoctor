@@ -45,6 +45,9 @@ def should_scan_file(file_path: str, gitignore_spec=None) -> bool:
             
     # Check file extension
     ext = os.path.splitext(file_path)[1].lower()
+    if not ext:
+        return False
+
     if ext in IGNORED_EXTENSIONS:
         return False
         
