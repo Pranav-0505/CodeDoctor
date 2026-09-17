@@ -23,3 +23,5 @@ httpx>=0.27.2
 
 # Optional: PostgreSQL support (SQLite used by default)
 # psycopg2-binary>=2.9.9
+
+pathspec>=0.12.1
