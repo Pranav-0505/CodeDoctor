@@ -8,12 +8,12 @@ class PlatformAdapter(ABC):
     """
 
     @abstractmethod
-    def get_code(()) -> str:
+    def get_code(self) -> str:
         """Extract active source code from platform buffer."""
         pass
 
     @abstractmethod
-    def get_file_path(()) -> str:
+    def get_file_path(self) -> str:
         """Get current active file path."""
         pass
 
