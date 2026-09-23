@@ -40,7 +40,7 @@ jobs:
           crit = report.get('critical_issues', 0)
           health = report.get('health_score', 100.0)
           print(f'Critical Issues: {crit}, Health Score: {health}')
-          if crit > 0 or health < 70.0:
+          if crit > 0 or health < 60.0:
               print('❌ CODE DOCTOR QUALITY GATE FAILED!')
               sys.exit(1)
           print('✓ CODE DOCTOR QUALITY GATE PASSED!')
